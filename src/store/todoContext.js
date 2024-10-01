@@ -8,4 +8,8 @@ export const todoContext = createContext({
   deleteAllTodos() {},
   inputText: String,
   setInputText() {},
+  update: Boolean,
+  setUpdate() {},
+  shareState: {},
+  setShareState() {},
 });

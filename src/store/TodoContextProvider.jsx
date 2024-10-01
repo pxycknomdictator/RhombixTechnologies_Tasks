@@ -5,6 +5,8 @@ import { todoContext } from "./todoContext";
 export const TodoContextProvider = ({ children }) => {
   const [todos, setTodos] = useState([]);
   const [inputText, setInputText] = useState("");
+  const [update, setUpdate] = useState(false);
+  const [shareState, setShareState] = useState({});
 
   const addTodo = (payload) => {
     setTodos((preTodo) => [...preTodo, payload]);
@@ -16,13 +18,22 @@ export const TodoContextProvider = ({ children }) => {
   };
 
   const updateTodo = (payload) => {
-    const findTodo = todos.findIndex((todo) => todo.id === payload.id);
-    if (findTodo !== -1) {
-      setTodos((preTodo) => [
-        ...preTodo,
-        (preTodo[findTodo].text = payload.text),
-      ]);
-    }
+    setTodos((preTodo) => {
+      const findTodoIndex = preTodo.findIndex((todo) => todo.id === payload.id);
+
+      if (findTodoIndex !== -1) {
+        const updatedTodo = {
+          ...preTodo[findTodoIndex],
+          text: payload.text,
+        };
+        return [
+          ...preTodo.slice(0, findTodoIndex),
+          updatedTodo,
+          ...preTodo.slice(findTodoIndex + 1),
+        ];
+      }
+      return preTodo;
+    });
   };
 
   const deleteAllTodos = () => {
@@ -39,6 +50,10 @@ export const TodoContextProvider = ({ children }) => {
         deleteAllTodos,
         inputText,
         setInputText,
+        update,
+        setUpdate,
+        shareState,
+        setShareState,
       }}
     >
       {children}
