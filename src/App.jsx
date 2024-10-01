@@ -1,3 +1,9 @@
+import { Input } from "./components/Input";
+
 export const App = () => {
-  return <h1 className="text-3xl font-bold underline">Hello Todo!</h1>;
+  return (
+    <main>
+      <Input />
+    </main>
+  );
 };
