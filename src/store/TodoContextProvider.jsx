@@ -1,39 +1,35 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { todoContext } from "./todoContext";
 
 export const TodoContextProvider = ({ children }) => {
-  const [todos, setTodos] = useState([]);
+  const getData = () => {
+    return JSON.parse(localStorage.getItem("data"));
+  };
+
+  const [todos, setTodos] = useState(getData()) || [];
   const [inputText, setInputText] = useState("");
   const [update, setUpdate] = useState(false);
   const [shareState, setShareState] = useState({});
+
+  useEffect(() => {
+    localStorage.setItem("data", JSON.stringify(todos));
+  }, [todos]);
 
   const addTodo = (payload) => {
     setTodos((preTodo) => [...preTodo, payload]);
   };
 
   const removeTodo = (todoId) => {
-    const remove = todos.filter((todo) => todo.id !== todoId);
-    setTodos(remove);
+    setTodos((preTodo) => preTodo.filter((todo) => todo.id !== todoId));
   };
 
   const updateTodo = (payload) => {
-    setTodos((preTodo) => {
-      const findTodoIndex = preTodo.findIndex((todo) => todo.id === payload.id);
-
-      if (findTodoIndex !== -1) {
-        const updatedTodo = {
-          ...preTodo[findTodoIndex],
-          text: payload.text,
-        };
-        return [
-          ...preTodo.slice(0, findTodoIndex),
-          updatedTodo,
-          ...preTodo.slice(findTodoIndex + 1),
-        ];
-      }
-      return preTodo;
-    });
+    setTodos((preTodo) =>
+      preTodo.map((todo) =>
+        todo.id === payload.id ? { ...todo, text: payload.text } : todo
+      )
+    );
   };
 
   const deleteAllTodos = () => {
