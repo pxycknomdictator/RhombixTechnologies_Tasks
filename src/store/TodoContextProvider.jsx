@@ -4,6 +4,7 @@ import { todoContext } from "./todoContext";
 
 export const TodoContextProvider = ({ children }) => {
   const [todos, setTodos] = useState([]);
+  const [inputText, setInputText] = useState("");
 
   const addTodo = (payload) => {
     setTodos((preTodo) => [...preTodo, payload]);
@@ -30,7 +31,15 @@ export const TodoContextProvider = ({ children }) => {
 
   return (
     <todoContext.Provider
-      value={{ todos, addTodo, removeTodo, updateTodo, deleteAllTodos }}
+      value={{
+        todos,
+        addTodo,
+        removeTodo,
+        updateTodo,
+        deleteAllTodos,
+        inputText,
+        setInputText,
+      }}
     >
       {children}
     </todoContext.Provider>

@@ -6,4 +6,6 @@ export const todoContext = createContext({
   removeTodo() {},
   updateTodo() {},
   deleteAllTodos() {},
+  inputText: String,
+  setInputText() {},
 });
