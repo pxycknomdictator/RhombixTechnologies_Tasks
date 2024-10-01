@@ -11,7 +11,7 @@ export const Input = () => {
           placeholder="Enter Todo"
           type="text"
         />
-        <div className="text-3xl bg-green-500 hover:bg-green-600 py-2 px-4 text-white font-bold cursor-pointer">
+        <div className="text-3xl bg-green-500 hover:bg-green-600 py-2 px-4 text-white font-bold cursor-pointer rounded">
           <IoMdAdd />
         </div>
       </div>
