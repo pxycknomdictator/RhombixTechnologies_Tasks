@@ -2,7 +2,7 @@ import { IoMdAdd } from "react-icons/io";
 
 export const Input = () => {
   return (
-    <form>
+    <form className="w-full">
       <div className="flex gap-3">
         <input
           className="outline-none border border-black text-xl pl-3"
